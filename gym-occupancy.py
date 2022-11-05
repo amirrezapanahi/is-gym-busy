@@ -21,8 +21,7 @@ if __name__ == '__main__':
         if 22 >= datetime_GB.hour >= 7:
             occupancyHtml = subprocess.run('curl -s https://sport.wp.st-andrews.ac.uk | grep "Occupancy"', shell=True,
                                            text=True, capture_output=True)
-            occupancyHtmlString = occupancyHtml.stdout.upper()
-            occupancy = re.search("\\d+(?:\\.\\d+)?%", occupancyHtmlString)
+            occupancy = re.search("\\d+(?:\\.\\d+)?%", occupancyHtml.stdout)
             occupancy = occupancy.group()[0:len(occupancy.group()) - 1]
             if int(occupancy) <= 50:
                 with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as server:
